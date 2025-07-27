@@ -26,7 +26,7 @@
   }
 
   button.large {
-    font-size: var(--size-medium);
+    font-size: var(--size-large);
   }
 
   button.primary {

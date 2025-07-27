@@ -1,9 +1,10 @@
 <script lang="ts">
+  import { setExtensionStatus } from "../global.svelte";
   import type { ExtensionData } from "../types";
   import Button from "./Button.svelte";
   import Switch from "./Switch.svelte";
 
-  let { logo, name, description, isActive }: ExtensionData = $props();
+  let { id, logo, name, description, isActive }: ExtensionData = $props();
 </script>
 
 <article class="surface">
@@ -17,7 +18,8 @@
   <div class="btns">
     <Button variant="outline">Remove</Button>
     <Switch
-      bind:checked={isActive}
+      onchange={(on) => setExtensionStatus(id, on)}
+      on={isActive}
       name="active-switch"
       labelText="Toggle this extension on or off"
     />

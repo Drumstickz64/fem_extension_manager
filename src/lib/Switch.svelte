@@ -2,14 +2,22 @@
   type Props = {
     name: string;
     labelText: string;
-    checked?: boolean;
+    on?: boolean;
+    onchange?: (on: boolean) => void;
   };
 
-  let { name, labelText, checked = $bindable(false) }: Props = $props();
+  let { name, labelText, on = $bindable(false), onchange }: Props = $props();
 </script>
 
 <label for={name} class="switch">
-  <input bind:checked type="checkbox" {name} id={name} aria-label={labelText} />
+  <input
+    onchange={() => onchange?.(on)}
+    bind:checked={on}
+    type="checkbox"
+    {name}
+    id={name}
+    aria-label={labelText}
+  />
 </label>
 
 <style>

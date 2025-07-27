@@ -1,11 +1,12 @@
 <script lang="ts">
+  import { getExtensions, populateExtensions } from "./global.svelte";
   import Button from "./lib/Button.svelte";
   import Extension from "./lib/Extension.svelte";
   import Header from "./lib/Header.svelte";
   import { toTitleCase } from "./stringUtils";
   import type { ExtensionData } from "./types";
 
-  let filterState: "all" | "active" | "inactive" = "all";
+  let filterState: "all" | "active" | "inactive" = $state("all");
 
   function shouldDisplayExtension(extension: ExtensionData): boolean {
     switch (filterState) {
@@ -16,17 +17,6 @@
       case "inactive":
         return !extension.isActive;
     }
-  }
-
-  async function fetchExtensions() {
-    const resp = await fetch("/data.json");
-    if (!resp.ok) {
-      throw new Error("Failed to get extensions");
-    }
-
-    const data: ExtensionData[] = await resp.json();
-
-    return data;
   }
 </script>
 
@@ -46,19 +36,21 @@
     {/each}
   </ul>
 
-  {#await fetchExtensions()}
+  {#await populateExtensions()}
     Fetching Extensions...
-  {:then data}
+  {:catch err}
+    <p>{err}</p>
+  {/await}
+
+  {#if getExtensions().length > 0}
     <ul class="extensions">
-      {#each data as extension}
+      {#each getExtensions() as extension (extension.id)}
         {#if shouldDisplayExtension(extension)}
           <Extension {...extension} />
         {/if}
       {/each}
     </ul>
-  {:catch err}
-    <p>{err}</p>
-  {/await}
+  {/if}
 </div>
 
 <style>
@@ -79,7 +71,7 @@
   .btn-group {
     display: flex;
     gap: 0.5rem;
-    margin: 1rem 0;
+    margin: 1.5rem 0;
     justify-content: center;
     padding: 0;
   }
