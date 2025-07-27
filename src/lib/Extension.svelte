@@ -1,13 +1,23 @@
 <script lang="ts">
-  import { setExtensionStatus } from "../global.svelte";
-  import type { ExtensionData } from "../types";
+  import { fade } from "svelte/transition";
+  import { globalState, type ExtensionData } from "../global.svelte";
   import Button from "./Button.svelte";
   import Switch from "./Switch.svelte";
 
-  let { id, logo, name, description, isActive }: ExtensionData = $props();
+  let {
+    id,
+    logo,
+    name,
+    description,
+    isActive = $bindable(),
+  }: ExtensionData = $props();
+
+  $effect(() => {
+    globalState.setExtensionStatus(id, isActive);
+  });
 </script>
 
-<article class="surface">
+<article class="surface" transition:fade={{ duration: 200 }}>
   <div class="content">
     <img src={logo} alt="" class="icon" />
     <div>
@@ -16,11 +26,12 @@
     </div>
   </div>
   <div class="btns">
-    <Button variant="outline">Remove</Button>
+    <Button variant="outline" onclick={() => globalState.removeExtension(id)}
+      >Remove</Button
+    >
     <Switch
-      onchange={(on) => setExtensionStatus(id, on)}
-      on={isActive}
-      name="active-switch"
+      bind:on={isActive}
+      name="{id}-active-switch"
       labelText="Toggle this extension on or off"
     />
   </div>

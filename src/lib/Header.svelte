@@ -1,7 +1,9 @@
 <script lang="ts">
-  import { colorScheme } from "../global.svelte";
+  import { globalState } from "../global.svelte";
 
-  const iconType = $derived(colorScheme === "dark" ? "sun" : "moon");
+  const iconType = $derived(
+    globalState.colorScheme === "dark" ? "sun" : "moon"
+  );
 </script>
 
 <header class="surface">

@@ -1,10 +1,9 @@
 <script lang="ts">
-  import { getExtensions, populateExtensions } from "./global.svelte";
+  import { type ExtensionData, globalState } from "./global.svelte";
   import Button from "./lib/Button.svelte";
   import Extension from "./lib/Extension.svelte";
   import Header from "./lib/Header.svelte";
   import { toTitleCase } from "./stringUtils";
-  import type { ExtensionData } from "./types";
 
   let filterState: "all" | "active" | "inactive" = $state("all");
 
@@ -18,6 +17,10 @@
         return !extension.isActive;
     }
   }
+
+  let filteredExtensions = $derived(
+    globalState.extensions.filter(shouldDisplayExtension)
+  );
 </script>
 
 <div class="container">
@@ -36,21 +39,17 @@
     {/each}
   </ul>
 
-  {#await populateExtensions()}
+  {#await globalState.populateExtensions()}
     Fetching Extensions...
+  {:then}
+    <ul class="extensions">
+      {#each filteredExtensions as extension (extension.id)}
+        <Extension {...extension} />
+      {/each}
+    </ul>
   {:catch err}
     <p>{err}</p>
   {/await}
-
-  {#if getExtensions().length > 0}
-    <ul class="extensions">
-      {#each getExtensions() as extension (extension.id)}
-        {#if shouldDisplayExtension(extension)}
-          <Extension {...extension} />
-        {/if}
-      {/each}
-    </ul>
-  {/if}
 </div>
 
 <style>
@@ -70,6 +69,7 @@
 
   .btn-group {
     display: flex;
+    flex-wrap: wrap;
     gap: 0.5rem;
     margin: 1.5rem 0;
     justify-content: center;

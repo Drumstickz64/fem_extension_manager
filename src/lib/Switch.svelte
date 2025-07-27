@@ -2,16 +2,14 @@
   type Props = {
     name: string;
     labelText: string;
-    on?: boolean;
-    onchange?: (on: boolean) => void;
+    on: boolean;
   };
 
-  let { name, labelText, on = $bindable(false), onchange }: Props = $props();
+  let { name, labelText, on = $bindable() }: Props = $props();
 </script>
 
 <label for={name} class="switch">
   <input
-    onchange={() => onchange?.(on)}
     bind:checked={on}
     type="checkbox"
     {name}
@@ -46,10 +44,6 @@
     border-radius: 9999px;
     background: var(--clr-neutral-0);
     transition: 200ms ease-in;
-  }
-
-  input:checked {
-    background-color: var(--clr-primary);
   }
 
   .switch:has(input:checked) {

@@ -1,25 +1,38 @@
-import type { ExtensionData } from "./types";
+export type ExtensionData = {
+  id: number;
+  logo: string;
+  name: string;
+  description: string;
+  isActive: boolean;
+};
 
 export type ColorScheme = "dark" | "light";
 
-export let colorScheme: ColorScheme = $state("light");
-let extensions: ExtensionData[] = $state([]);
+export class GlobalState {
+  colorScheme: ColorScheme = $state("light");
+  extensions: ExtensionData[] = $state([]);
 
-export function getExtensions(): ExtensionData[] {
-  return extensions;
-}
+  async populateExtensions(): Promise<void> {
+    const resp = await fetch("/data.json");
+    if (!resp.ok) {
+      throw new Error("Failed to get extensions");
+    }
 
-export async function populateExtensions(): Promise<void> {
-  const resp = await fetch("/data.json");
-  if (!resp.ok) {
-    throw new Error("Failed to get extensions");
+    const data: ExtensionData[] = await resp.json();
+
+    globalState.extensions = data;
   }
 
-  const data: ExtensionData[] = await resp.json();
+  removeExtension(id: number): void {
+    globalState.extensions = globalState.extensions.filter(
+      (extension) => extension.id !== id
+    );
+  }
 
-  extensions = data;
+  setExtensionStatus(id: number, isActive: boolean): void {
+    this.extensions.find((extension) => extension.id === id)!.isActive =
+      isActive;
+  }
 }
 
-export function setExtensionStatus(id: number, status: boolean): void {
-  extensions.find((extension) => extension.id == id)!.isActive = status;
-}
+export let globalState = new GlobalState();

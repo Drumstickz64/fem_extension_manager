@@ -8,7 +8,7 @@
     size?: "normal" | "large";
   };
 
-  const { variant, size = "normal", children, ...props }: Props = $props();
+  let { variant, size = "normal", children, ...props }: Props = $props();
 </script>
 
 <button class={[variant != "outline" && "surface", variant, size]} {...props}>
