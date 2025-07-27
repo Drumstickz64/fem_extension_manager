@@ -2,6 +2,18 @@
   import Button from "./lib/Button.svelte";
   import Extension from "./lib/Extension.svelte";
   import Header from "./lib/Header.svelte";
+  import type { ExtensionData } from "./types";
+
+  async function fetchExtensions() {
+    const resp = await fetch("/data.json");
+    if (!resp.ok) {
+      throw new Error("Failed to get extensions");
+    }
+
+    const data: ExtensionData[] = await resp.json();
+
+    return data;
+  }
 </script>
 
 <div class="container">
@@ -15,13 +27,17 @@
     <Button>Inactive</Button>
   </ul>
 
-  <ul class="extensions">
-    <Extension
-      iconsSrc="extension_logos/logo-devlens.svg"
-      title="DevLens"
-      description="Quickly inspect page layouts and visualize element boundaries."
-    />
-  </ul>
+  {#await fetchExtensions()}
+    Fetching Extensions...
+  {:then data}
+    <ul class="extensions">
+      {#each data as extension}
+        <Extension {...extension} />
+      {/each}
+    </ul>
+  {:catch err}
+    <p>{err}</p>
+  {/await}
 </div>
 
 <style>
@@ -48,7 +64,9 @@
   }
 
   .extensions {
+    display: grid;
     margin: 1rem 0 0 0;
     padding: 0;
+    row-gap: 0.75rem;
   }
 </style>

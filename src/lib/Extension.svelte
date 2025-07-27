@@ -1,21 +1,26 @@
-<script>
+<script lang="ts">
+  import type { ExtensionData } from "../types";
   import Button from "./Button.svelte";
   import Switch from "./Switch.svelte";
 
-  const { iconsSrc, title, description } = $props();
+  let { logo, name, description, isActive }: ExtensionData = $props();
 </script>
 
 <article class="surface">
   <div class="content">
-    <img src={iconsSrc} alt="" class="icon" />
+    <img src={logo} alt="" class="icon" />
     <div>
-      <h2>{title}</h2>
+      <h2>{name}</h2>
       <p>{description}</p>
     </div>
   </div>
   <div class="btns">
     <Button variant="outline">Remove</Button>
-    <Switch name="active-switch" labelText="Toggle this extension on or off" />
+    <Switch
+      bind:checked={isActive}
+      name="active-switch"
+      labelText="Toggle this extension on or off"
+    />
   </div>
 </article>
 
