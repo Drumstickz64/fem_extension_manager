@@ -26,7 +26,7 @@
 
 <style>
   article {
-    padding: var(--padding-3);
+    padding: var(--padding-4);
     border-radius: 1em;
   }
 

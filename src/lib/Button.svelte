@@ -1,28 +1,32 @@
 <script lang="ts">
-  import type { Snippet } from "svelte";
+  import type { HTMLButtonAttributes } from "svelte/elements";
 
   type ButtonVariant = "primary" | "outline";
 
-  type Props = {
+  type Props = HTMLButtonAttributes & {
     variant?: ButtonVariant;
-    children?: Snippet;
+    size?: "normal" | "large";
   };
 
-  const { variant, children, ...props }: Props = $props();
+  const { variant, size = "normal", children, ...props }: Props = $props();
 </script>
 
-<button class={[variant != "outline" && "surface", variant]} {...props}>
+<button class={[variant != "outline" && "surface", variant, size]} {...props}>
   {@render children?.()}
 </button>
 
 <style>
   button {
-    padding: var(--padding-2) var(--padding-3);
+    padding: var(--padding-2) var(--padding-4);
     border: none;
     font-weight: var(--weight-medium);
     color: var(--clr-text-2);
     border-radius: 9999px;
-    font-size: var(--size-large);
+    font-size: var(--size-regular);
+  }
+
+  button.large {
+    font-size: var(--size-medium);
   }
 
   button.primary {

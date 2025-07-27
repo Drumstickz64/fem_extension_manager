@@ -53,7 +53,7 @@
   --gradient-light: linear-gradient(180deg, #ebf2fc 0%, #eef8f9 100%);
   --gradient-dark: linear-gradient(180deg, #040918 0%, #091540 100%);
 
-  --size-normal: 1rem;
+  --size-regular: 1rem;
   --size-large: 1.25rem;
   --size-xl: 2rem;
 
@@ -63,9 +63,10 @@
   --weight-medium: 500;
   --weight-bold: 700;
 
-  --padding-1: 0.25rem;
-  --padding-2: 0.5rem;
-  --padding-3: 1rem;
+  --padding-1: 0.25em;
+  --padding-2: 0.5em;
+  --padding-3: 0.75em;
+  --padding-4: 1em;
 
   --shadow-color: 0deg 0% 0%;
   --shadow: 0px 0.2px 0.3px hsl(var(--shadow-color) / 0.05),
@@ -78,7 +79,7 @@ body {
   background: var(--gradient-light);
   color: var(--clr-text-1);
   font-weight: var(--weight-regular);
-  font-size: var(--size-normal);
+  font-size: var(--size-regular);
 }
 
 .surface {

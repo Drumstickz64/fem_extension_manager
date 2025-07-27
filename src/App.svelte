@@ -2,7 +2,21 @@
   import Button from "./lib/Button.svelte";
   import Extension from "./lib/Extension.svelte";
   import Header from "./lib/Header.svelte";
+  import { toTitleCase } from "./stringUtils";
   import type { ExtensionData } from "./types";
+
+  let filterState: "all" | "active" | "inactive" = "all";
+
+  function shouldDisplayExtension(extension: ExtensionData): boolean {
+    switch (filterState) {
+      case "all":
+        return true;
+      case "active":
+        return extension.isActive;
+      case "inactive":
+        return !extension.isActive;
+    }
+  }
 
   async function fetchExtensions() {
     const resp = await fetch("/data.json");
@@ -22,9 +36,14 @@
   <h1>Extensions List</h1>
 
   <ul class="btn-group">
-    <Button variant="primary">All</Button>
-    <Button>Active</Button>
-    <Button>Inactive</Button>
+    {#each ["all", "active", "inactive"] as const as filterType}
+      <Button
+        size="large"
+        variant={filterState === filterType ? "primary" : undefined}
+        onclick={() => (filterState = filterType)}
+        >{toTitleCase(filterType)}</Button
+      >
+    {/each}
   </ul>
 
   {#await fetchExtensions()}
@@ -32,7 +51,9 @@
   {:then data}
     <ul class="extensions">
       {#each data as extension}
-        <Extension {...extension} />
+        {#if shouldDisplayExtension(extension)}
+          <Extension {...extension} />
+        {/if}
       {/each}
     </ul>
   {:catch err}
@@ -65,7 +86,7 @@
 
   .extensions {
     display: grid;
-    margin: 1rem 0 0 0;
+    margin: 3rem 0 0 0;
     padding: 0;
     row-gap: 0.75rem;
   }

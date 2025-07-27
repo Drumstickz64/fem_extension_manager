@@ -23,6 +23,6 @@
     border-radius: 0.5em;
     background-color: var(--clr-bg-2);
     border: none;
-    padding: var(--padding-2);
+    padding: var(--padding-3);
   }
 </style>
