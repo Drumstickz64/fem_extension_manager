@@ -22,6 +22,7 @@
     font-weight: var(--weight-medium);
     color: var(--clr-text-2);
     border-radius: 9999px;
+    font-size: var(--size-large);
   }
 
   button.primary {

@@ -19,10 +19,6 @@
     border-radius: 0.5em;
   }
 
-  .logo {
-    color: white;
-  }
-
   .color-scheme-btn {
     border-radius: 0.5em;
     background-color: var(--clr-bg-2);
