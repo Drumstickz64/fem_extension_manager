@@ -26,18 +26,22 @@
 <div class="container">
   <Header />
 
-  <h1>Extensions List</h1>
+  <div class="split">
+    <h1>Extensions List</h1>
 
-  <ul class="btn-group">
-    {#each ["all", "active", "inactive"] as const as filterType}
-      <Button
-        size="large"
-        variant={filterState === filterType ? "primary" : undefined}
-        onclick={() => (filterState = filterType)}
-        >{toTitleCase(filterType)}</Button
-      >
-    {/each}
-  </ul>
+    <ul class="btn-group" role="tablist">
+      {#each ["all", "active", "inactive"] as const as filterType}
+        <Button
+          size="large"
+          variant={filterState === filterType ? "primary" : undefined}
+          onclick={() => (filterState = filterType)}
+          role="tab"
+          aria-selected={filterState === filterType}
+          >{toTitleCase(filterType)}</Button
+        >
+      {/each}
+    </ul>
+  </div>
 
   {#await globalState.populateExtensions()}
     Fetching Extensions...
@@ -54,9 +58,17 @@
 
 <style>
   .container {
-    max-width: 100ch;
+    max-width: 135ch;
     margin: 0 auto;
     padding: var(--padding-2);
+  }
+
+  .split {
+    display: grid;
+    justify-content: center;
+
+    margin-top: 2rem;
+    gap: 0.25rem 0.5rem;
   }
 
   h1 {
@@ -64,22 +76,33 @@
     font-weight: var(--weight-bold);
     color: var(--clr-text-3);
     text-align: center;
-    margin-top: 1.5rem;
   }
 
   .btn-group {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin: 1.5rem 0;
     justify-content: center;
     padding: 0;
   }
 
   .extensions {
     display: grid;
-    margin: 3rem 0 0 0;
+    grid-template-columns: repeat(auto-fit, minmax(35ch, 1fr));
+    margin: 1.5rem 0 0 0;
     padding: 0;
-    row-gap: 0.75rem;
+    gap: 0.75rem;
+  }
+
+  @media (min-width: 1440px) {
+    .split {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .extensions {
+      margin-top: 1rem;
+    }
   }
 </style>
