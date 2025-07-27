@@ -1,5 +1,6 @@
 <script>
   import Button from "./Button.svelte";
+  import Switch from "./Switch.svelte";
 
   const { iconsSrc, title, description } = $props();
 </script>
@@ -14,12 +15,7 @@
   </div>
   <div class="btns">
     <Button variant="outline">Remove</Button>
-    <input
-      type="checkbox"
-      name="active-switch"
-      id="active-switch"
-      aria-label="Toggle this extension on or off"
-    />
+    <Switch name="active-switch" labelText="Toggle this extension on or off" />
   </div>
 </article>
 
@@ -48,6 +44,7 @@
   .btns {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-top: 1.5rem;
   }
 </style>
