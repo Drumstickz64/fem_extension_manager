@@ -31,7 +31,8 @@
 
   button.primary {
     background-color: var(--clr-primary);
-    color: var(--clr-bg-2);
+    color: var(--clr-bg-1);
+    border: none;
   }
 
   button.outline {

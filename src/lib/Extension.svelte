@@ -39,8 +39,10 @@
 
 <style>
   article {
+    display: grid;
     padding: var(--padding-4);
     border-radius: 1em;
+    align-content: space-between;
   }
 
   .content {
@@ -63,6 +65,5 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 1.5rem;
   }
 </style>

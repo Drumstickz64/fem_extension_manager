@@ -21,6 +21,14 @@
   let filteredExtensions = $derived(
     globalState.extensions.filter(shouldDisplayExtension)
   );
+
+  $effect(() => {
+    if (globalState.colorScheme == "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  });
 </script>
 
 <div class="container">
@@ -57,12 +65,6 @@
 </div>
 
 <style>
-  .container {
-    max-width: 135ch;
-    margin: 0 auto;
-    padding: var(--padding-2);
-  }
-
   .split {
     display: grid;
     justify-content: center;
@@ -89,6 +91,7 @@
   .extensions {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(35ch, 1fr));
+    grid-auto-rows: minmax(22.5ch, auto);
     margin: 1.5rem 0 0 0;
     padding: 0;
     gap: 0.75rem;
