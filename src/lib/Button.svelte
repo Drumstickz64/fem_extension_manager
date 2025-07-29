@@ -35,8 +35,22 @@
     border: none;
   }
 
+  button:not(.outline):hover {
+    filter: opacity(0.75);
+  }
+
+  :global(.dark) button:not(.outline):not(.primary):hover {
+    filter: none;
+    background-color: var(--clr-bg-3);
+  }
+
   button.outline {
     background-color: transparent;
     border: 1px solid var(--clr-bg-3);
+  }
+
+  button.outline:hover {
+    background-color: var(--clr-primary);
+    color: var(--clr-bg-2);
   }
 </style>

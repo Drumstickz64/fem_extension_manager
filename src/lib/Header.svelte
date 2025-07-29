@@ -38,4 +38,8 @@
     border: none;
     padding: var(--padding-3);
   }
+
+  .color-scheme-btn:hover {
+    background-color: var(--clr-bg-3);
+  }
 </style>

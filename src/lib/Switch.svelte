@@ -25,6 +25,16 @@
     height: 1.25em;
     background-color: var(--clr-bg-3);
     border-radius: 9999px;
+    cursor: pointer;
+  }
+
+  .switch:hover {
+    filter: opacity(0.75);
+  }
+
+  .switch:has(:focus-visible) {
+    outline: 3px solid var(--clr-primary);
+    outline-offset: 2px;
   }
 
   input {

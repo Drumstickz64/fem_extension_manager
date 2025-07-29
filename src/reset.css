@@ -94,3 +94,9 @@ textarea:not([rows]) {
 :target {
   scroll-margin-block: 5ex;
 }
+
+button,
+input[type="button"],
+input[type="checkbox"] {
+  cursor: pointer;
+}

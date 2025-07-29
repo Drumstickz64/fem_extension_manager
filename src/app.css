@@ -37,7 +37,6 @@
   --clr-neutral-200: hsl(217, 61%, 90%);
   --clr-neutral-100: hsl(0, 0%, 93%);
   --clr-neutral-0: hsl(200, 60%, 99%);
-
   --clr-primary-400: hsl(3, 86%, 64%);
   --clr-primary-500: hsl(3, 71%, 56%);
   --clr-primary-700: hsl(3, 77%, 44%);
@@ -81,7 +80,7 @@
   --clr-text-1: var(--clr-neutral-300);
   --clr-text-2: var(--clr-neutral-200);
   --clr-text-3: var(--clr-neutral-100);
-  --clr-primary: var(--clr-primary-500);
+  --clr-primary: var(--clr-primary-400);
 
   --shadow: none;
 }
@@ -113,6 +112,14 @@ body {
   border: 1px solid var(--clr-bg-3);
 }
 
-* {
-  transition: background-color 250ms ease-out, color 250ms ease-out;
+*,
+*::before,
+*::after {
+  transition: background-color 250ms ease-out, color 250ms ease-out,
+    filter 250ms ease-out;
+}
+
+*:focus-visible {
+  outline: 3px solid var(--clr-primary);
+  outline-offset: 2px;
 }
