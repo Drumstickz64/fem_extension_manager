@@ -1,17 +1,21 @@
 <script lang="ts">
   import { globalState } from "../global.svelte";
+  import moonIcon from "/src/assets/images/icon-moon.svg";
+  import sunIcon from "/src/assets/images/icon-sun.svg";
+  import logoDark from "/src/assets/images/logo-dark.svg";
+  import logoLight from "/src/assets/images/logo-light.svg";
 
-  const iconType = $derived(
-    globalState.colorScheme === "dark" ? "sun" : "moon"
+  const logo = $derived(
+    globalState.colorScheme === "dark" ? logoDark : logoLight
+  );
+
+  const themeIcon = $derived(
+    globalState.colorScheme === "dark" ? sunIcon : moonIcon
   );
 </script>
 
 <header class="surface">
-  <img
-    src="/src/assets/images/logo-{globalState.colorScheme}.svg"
-    alt="Extensions"
-    class="logo"
-  />
+  <img src={logo} alt="Extensions" class="logo" />
   <button
     onclick={() =>
       (globalState.colorScheme =
@@ -19,7 +23,7 @@
     class="color-scheme-btn"
     aria-label="Color Scheme Button"
   >
-    <img src="/src/assets/images/icon-{iconType}.svg" alt="" />
+    <img src={themeIcon} alt="" />
   </button>
 </header>
 
