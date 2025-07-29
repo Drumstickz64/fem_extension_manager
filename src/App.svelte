@@ -3,6 +3,7 @@
   import Button from "./lib/Button.svelte";
   import Extension from "./lib/Extension.svelte";
   import Header from "./lib/Header.svelte";
+  import Spinner from "./lib/Spinner.svelte";
   import { toTitleCase } from "./stringUtils";
 
   let filterState: "all" | "active" | "inactive" = $state("all");
@@ -51,17 +52,21 @@
     </ul>
   </div>
 
-  {#await globalState.populateExtensions()}
-    Fetching Extensions...
-  {:then}
-    <ul class="extensions">
-      {#each filteredExtensions as extension (extension.id)}
-        <Extension {...extension} />
-      {/each}
-    </ul>
-  {:catch err}
-    <p>{err}</p>
-  {/await}
+  <main>
+    {#await globalState.populateExtensions()}
+      <div class="spinner-container">
+        <Spinner />
+      </div>
+    {:then}
+      <ul class="extensions">
+        {#each filteredExtensions as extension (extension.id)}
+          <Extension {...extension} />
+        {/each}
+      </ul>
+    {:catch err}
+      <p>{err}</p>
+    {/await}
+  </main>
 </div>
 
 <style>
@@ -88,11 +93,21 @@
     padding: 0;
   }
 
+  main {
+    margin-top: 1.5rem;
+  }
+
+  .spinner-container {
+    display: grid;
+    justify-content: center;
+    padding: 10vh;
+  }
+
   .extensions {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(35ch, 1fr));
     grid-auto-rows: minmax(22.5ch, auto);
-    margin: 1.5rem 0 0 0;
+    margin: 0;
     padding: 0;
     gap: 0.75rem;
   }
