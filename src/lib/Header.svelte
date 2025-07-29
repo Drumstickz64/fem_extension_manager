@@ -31,8 +31,8 @@
   header.surface {
     display: flex;
     justify-content: space-between;
-    padding: var(--padding-2);
-    border-radius: 0.5em;
+    padding: var(--padding-3);
+    border-radius: 1em;
     border: none;
   }
 

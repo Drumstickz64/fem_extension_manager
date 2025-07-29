@@ -70,11 +70,15 @@
 </div>
 
 <style>
+  .container {
+    margin-top: 1rem;
+  }
+
   .split {
     display: grid;
     justify-content: center;
 
-    margin-top: 2rem;
+    margin-top: 2.5rem;
     gap: 0.25rem 0.5rem;
   }
 
@@ -94,7 +98,7 @@
   }
 
   main {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
   }
 
   .spinner-container {
@@ -114,6 +118,10 @@
   }
 
   @media (min-width: 1440px) {
+    .container {
+      margin-top: 2rem;
+    }
+
     .split {
       display: flex;
       justify-content: space-between;

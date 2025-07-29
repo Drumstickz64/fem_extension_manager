@@ -98,7 +98,7 @@ body {
 }
 
 .container {
-  max-width: 135ch;
+  max-width: 130ch;
   margin: 0 auto;
   padding: var(--padding-2);
 }
