@@ -110,6 +110,7 @@
     margin: 0;
     padding: 0;
     gap: 0.75rem;
+    list-style: none;
   }
 
   @media (min-width: 1440px) {

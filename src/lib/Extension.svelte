@@ -19,7 +19,7 @@
 
 <article class="surface" transition:fade={{ duration: 200 }}>
   <div class="content">
-    <img src={logo} alt="" class="icon" />
+    <img src={logo} alt="" width="60" height="60" class="icon" />
     <div>
       <h2>{name}</h2>
       <p>{description}</p>

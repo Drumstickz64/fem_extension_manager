@@ -15,7 +15,7 @@
 </script>
 
 <header class="surface">
-  <img src={logo} alt="Extensions" class="logo" />
+  <img src={logo} alt="Extensions" width="179" height="41" class="logo" />
   <button
     onclick={() =>
       (globalState.colorScheme =
@@ -23,7 +23,7 @@
     class="color-scheme-btn"
     aria-label="Color Scheme Button"
   >
-    <img src={themeIcon} alt="" />
+    <img src={themeIcon} alt="" width="22" height="22" />
   </button>
 </header>
 
