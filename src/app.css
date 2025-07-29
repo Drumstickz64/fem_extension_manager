@@ -112,3 +112,7 @@ body {
 .dark .surface {
   border: 1px solid var(--clr-bg-3);
 }
+
+* {
+  transition: background-color 250ms ease-out, color 250ms ease-out;
+}
